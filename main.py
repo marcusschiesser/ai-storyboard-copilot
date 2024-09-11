@@ -83,24 +83,22 @@ def generate_prompt(description):
 def generate_images(data):
     results = []
     total_scenes = len(data["scenes"])
-    for i, scene in enumerate(data["scenes"], 1):
-        logging.info(f"Processing scene {scene['scene_number']} ({i}/{total_scenes})")
-        scene_results = {"scene_number": scene["scene_number"], "images": []}
+    for i, scene in enumerate(data["scenes"], 1):  # This already starts at 1
+        logging.info(f"Processing scene {i} ({i}/{total_scenes})")
+        scene_results = {"scene_number": i, "images": []}
 
         for j in range(NR_IMAGES):
             # Generate a unique prompt for each image
             prompt = generate_prompt(scene["description"])
 
             # Generate image using the prompt
-            logging.info(
-                f"Generating image {j+1}/{NR_IMAGES} for scene {scene['scene_number']}"
-            )
+            logging.info(f"Generating image {j+1}/{NR_IMAGES} for scene {i}")
             result = call_replicate_api(prompt)
 
             logging.info(f"Generated image: {result}")
 
             image_url = result[0]
-            filename = f"scene_{scene['scene_number']}_image_{j+1}.webp"
+            filename = f"scene_{i}_image_{j+1}.webp"
             download_image(image_url, "output", filename)
             scene_results["images"].append(
                 {

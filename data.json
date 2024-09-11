@@ -1,28 +1,23 @@
 {
     "scenes": [
         {
-            "scene_number": 1,
-            "narration": "The SENATE is filled with chatter. mrcsschssr, wearing his imperial toga, stands before them, looking defiant. SENATOR rises.\n'SENATOR: The SANO has spoken! You are no longer Emperor.'\nmrcsschssr is escorted out, bewildered.\n'NARRATOR: Well, this is humiliating. Couldn’t they at least throw a party?'",
+            "narration": "The SENATE is filled with chatter. mrcsschssr, wearing his imperial toga, stands before them, looking defiant. SENATOR rises.\n'SENATOR: The SANO has spoken! You are no longer Emperor.'\nmrcsschssr is escorted out, bewildered.\n'NARRATOR: Well, this is humiliating. Couldn't they at least have the decency to kill me like Cesar?'",
             "description": "A tense Senate chamber where mrcsschssr, in his imperial toga, is being stripped of his title as Emperor. He looks shocked and defiant as he's escorted out by a Senator, while the chamber is filled with chatter."
         },
         {
-            "scene_number": 2,
             "narration": "mrcsschssr wanders aimlessly, toga dragging through the dirt. CITIZENS whisper.\n'NARRATOR: I went from ruling an empire to dodging stray dogs. What a life.'\nmrcsschssr passes a tavern and pauses.\n'mrcsschssr: Maybe wine will fix this.'",
             "description": "mrcsschssr, now in a worn and dirty toga, wanders through a bustling street. Citizens whisper as he passes by. He stops in front of a tavern, looking weary and contemplating whether to enter."
         },
         {
-            "scene_number": 3,
             "narration": "mrcsschssr drinks in a tavern, half-listening to Aurelia, a sculptor, at the next table.\n'AURELIA: I want to carve something meaningful. Something real.'\nmrcsschssr: 'Good luck with that. I tried ruling, and look where it got me.'",
             "description": "Inside a tavern, mrcsschssr sits drinking while Aurelia, a young sculptor, sketches at a nearby table. mrcsschssr looks slightly amused as he listens to Aurelia's passionate talk about her art."
         },
         {
-            "scene_number": 4,
-            "narration": "mrcsschssr tries his hand at selling soup in the market. It’s a mess, but CITIZENS gather, laughing and eating.\n'NARRATOR: Turns out, people prefer soup over speeches. Who knew?' mrcsschssr ladles soup with a smile.\n'mrcsschssr: Maybe I’m better at this.'",
+            "narration": "mrcsschssr tries his hand at selling soup in the market. It's a mess, but CITIZENS gather, laughing and eating.\n'NARRATOR: Turns out, people prefer soup over speeches. Who knew?' mrcsschssr ladles soup with a smile.\n'mrcsschssr: Maybe I'm better at this.'",
             "description": "In a bustling market, mrcsschssr stands at a messy soup stall, awkwardly but cheerfully ladling out soup. Despite the chaos, citizens are gathered around, laughing and enjoying the food."
         },
         {
-            "scene_number": 5,
-            "narration": "The SENATORS summon mrcsschssr back to the Senate chamber.\n'SENATOR: We need you. As an advisor.' mrcsschssr grins, eyes twinkling.\n'mrcsschssr: Soup’s on, boys. Let’s do this.'",
+            "narration": "The SENATORS summon mrcsschssr back to the Senate chamber.\n'SENATOR: We need you. As an advisor.' mrcsschssr grins, eyes twinkling.\n'mrcsschssr: Soup's on, boys. Let's do this.'",
             "description": "Back in the Senate chamber, mrcsschssr stands confidently before the Senators. He looks bemused as they offer him a new role as an advisor, his eyes twinkling with newfound purpose."
         }
     ]
