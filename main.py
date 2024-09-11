@@ -5,11 +5,15 @@ import logging
 from dotenv import load_dotenv
 import requests
 from pathlib import Path
+from openai import OpenAI
 
 # Set up logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
+
+# Add this constant at the top of the file, after the imports
+NR_IMAGES = 5  # Number of images to generate per scene
 
 
 def load_data(file_path):
@@ -19,8 +23,8 @@ def load_data(file_path):
 
 
 def call_replicate_api(prompt):
-    prompt = f"{prompt}. Style: Ancient rome 0 Ad"
-    logging.info(f"Calling Replicate API with prompt: {prompt[:50]}...")
+    prompt = f"{prompt}. style: ancient rome 0 ad"
+    logging.info(f"Calling replicate api with prompt: {prompt[:50]}...")
     output = replicate.run(
         "marcusschiesser/flux-dev-me:5cbdafc09fe365d8ffadf39308246f2015a1774afc86ae9bf0d1717a77404352",
         input={
@@ -52,20 +56,59 @@ def download_image(url, folder, filename):
         logging.error(f"Failed to download image: {url}")
 
 
+def generate_prompt(description):
+    logging.info(f"Generating prompt for description: {description[:50]}...")
+    prompt = f"Generate a detailed and unique image prompt based on the following scene description: {description}. The prompt should be suitable for an image generation AI model. Style: Ancient Rome 0 AD. Make each prompt distinct and creative."
+
+    client = OpenAI()
+    response = client.chat.completions.create(
+        model="gpt-4",  # Update this to the correct model name
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful assistant specialized in creating detailed and diverse image prompts. Just output the prompt and nothing else.",
+            },
+            {"role": "user", "content": prompt},
+        ],
+        max_tokens=100,
+        temperature=0.8,
+        top_p=0.9,
+    )
+
+    generated_prompt = response.choices[0].message.content.strip()
+    logging.info(f"Generated prompt: {generated_prompt[:50]}...")
+    return generated_prompt
+
+
 def generate_images(data):
     results = []
     total_scenes = len(data["scenes"])
     for i, scene in enumerate(data["scenes"], 1):
         logging.info(f"Processing scene {scene['scene_number']} ({i}/{total_scenes})")
         scene_results = {"scene_number": scene["scene_number"], "images": []}
-        for version, prompt in scene["prompts"].items():
-            logging.info(f"Generating image for version {version}")
+
+        for j in range(NR_IMAGES):
+            # Generate a unique prompt for each image
+            prompt = generate_prompt(scene["description"])
+
+            # Generate image using the prompt
+            logging.info(
+                f"Generating image {j+1}/{NR_IMAGES} for scene {scene['scene_number']}"
+            )
             result = call_replicate_api(prompt)
+
+            logging.info(f"Generated image: {result}")
+
             image_url = result[0]
-            filename = f"scene_{scene['scene_number']}_{version}.webp"
+            filename = f"scene_{scene['scene_number']}_image_{j+1}.webp"
             download_image(image_url, "output", filename)
             scene_results["images"].append(
-                {"version": version, "url": image_url, "filename": filename}
+                {
+                    "version": f"v{j+1}",
+                    "url": image_url,
+                    "filename": filename,
+                    "prompt": prompt,
+                }
             )
         results.append(scene_results)
     return results

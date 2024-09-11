@@ -3,59 +3,27 @@
         {
             "scene_number": 1,
             "narration": "The SENATE is filled with chatter. mrcsschssr, wearing his imperial toga, stands before them, looking defiant. SENATOR rises.\n'SENATOR: The SANO has spoken! You are no longer Emperor.'\nmrcsschssr is escorted out, bewildered.\n'NARRATOR: Well, this is humiliating. Couldn’t they at least throw a party?'",
-            "prompts": {
-                "version_1": "A tense Senate chamber with two characters: mrcsschssr in a toga being escorted out by a Senator.",
-                "version_2": "mrcsschssr standing before a crowd of Senators, looking shocked as he is stripped of his title."
-            }
+            "description": "A tense Senate chamber where mrcsschssr, in his imperial toga, is being stripped of his title as Emperor. He looks shocked and defiant as he's escorted out by a Senator, while the chamber is filled with chatter."
         },
         {
             "scene_number": 2,
             "narration": "mrcsschssr wanders aimlessly, toga dragging through the dirt. CITIZENS whisper.\n'NARRATOR: I went from ruling an empire to dodging stray dogs. What a life.'\nmrcsschssr passes a tavern and pauses.\n'mrcsschssr: Maybe wine will fix this.'",
-            "prompts": {
-                "version_1": "mrcsschssr in a worn toga walking through a bustling street with citizens whispering.",
-                "version_2": "mrcsschssr standing outside a tavern, looking at the entrance with a weary expression."
-            }
+            "description": "mrcsschssr, now in a worn and dirty toga, wanders through a bustling street. Citizens whisper as he passes by. He stops in front of a tavern, looking weary and contemplating whether to enter."
         },
         {
             "scene_number": 3,
             "narration": "mrcsschssr drinks in a tavern, half-listening to Aurelia, a sculptor, at the next table.\n'AURELIA: I want to carve something meaningful. Something real.'\nmrcsschssr: 'Good luck with that. I tried ruling, and look where it got me.'",
-            "prompts": {
-                "version_1": "mrcsschssr drinking at a tavern bar, listening to Aurelia, a young sculptor, sketching nearby.",
-                "version_2": "mrcsschssr seated at a tavern table, looking slightly amused while Aurelia sketches at another table."
-            }
+            "description": "Inside a tavern, mrcsschssr sits drinking while Aurelia, a young sculptor, sketches at a nearby table. mrcsschssr looks slightly amused as he listens to Aurelia's passionate talk about her art."
         },
         {
             "scene_number": 4,
             "narration": "mrcsschssr tries his hand at selling soup in the market. It’s a mess, but CITIZENS gather, laughing and eating.\n'NARRATOR: Turns out, people prefer soup over speeches. Who knew?' mrcsschssr ladles soup with a smile.\n'mrcsschssr: Maybe I’m better at this.'",
-            "prompts": {
-                "version_1": "mrcsschssr in a market stall, serving soup to laughing citizens.",
-                "version_2": "mrcsschssr awkwardly ladling soup at a messy market stand, with citizens enjoying the food."
-            }
+            "description": "In a bustling market, mrcsschssr stands at a messy soup stall, awkwardly but cheerfully ladling out soup. Despite the chaos, citizens are gathered around, laughing and enjoying the food."
         },
         {
             "scene_number": 5,
             "narration": "The SENATORS summon mrcsschssr back to the Senate chamber.\n'SENATOR: We need you. As an advisor.' mrcsschssr grins, eyes twinkling.\n'mrcsschssr: Soup’s on, boys. Let’s do this.'",
-            "prompts": {
-                "version_1": "mrcsschssr standing confidently in the Senate chamber, being offered a new role by a Senator.",
-                "version_2": "mrcsschssr back in the Senate chamber, looking bemused as the Senators offer him an advisor role."
-            }
-        }
-    ],
-    "characters": [
-        {
-            "name": "mrcsschssr",
-            "role": "Main character, former emperor",
-            "description": "mrcsschssr is a fallen emperor who finds purpose in serving the people after losing his title."
-        },
-        {
-            "name": "Senator",
-            "role": "Supporting character, member of the Senate",
-            "description": "A stern figure who represents the Senate and plays a role in deposing mrcsschssr."
-        },
-        {
-            "name": "Aurelia",
-            "role": "Supporting character, sculptor",
-            "description": "A passionate young artist who crosses paths with mrcsschssr, sharing creative ambitions."
+            "description": "Back in the Senate chamber, mrcsschssr stands confidently before the Senators. He looks bemused as they offer him a new role as an advisor, his eyes twinkling with newfound purpose."
         }
     ]
 }
