@@ -6,14 +6,16 @@ from dotenv import load_dotenv
 import requests
 from pathlib import Path
 from openai import OpenAI
+from datetime import date
 
 # Set up logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-# Add this constant at the top of the file, after the imports
+# Add these constants at the top of the file, after the imports
 NR_IMAGES = 5  # Number of images to generate per scene
+DEFAULT_MODEL = "black-forest-labs/flux-pro"
 
 
 def load_data(file_path):
@@ -22,24 +24,36 @@ def load_data(file_path):
         return json.load(file)
 
 
-def call_replicate_api(prompt):
-    prompt = f"{prompt}. style: ancient rome 0 ad"
+def call_replicate_api(prompt, style):
+    prompt = f"{prompt}. style: {style}"
     logging.info(f"Calling replicate api with prompt: {prompt[:50]}...")
+    model = os.getenv("REPLICATE_MODEL", DEFAULT_MODEL)
     output = replicate.run(
-        "marcusschiesser/flux-dev-me:5cbdafc09fe365d8ffadf39308246f2015a1774afc86ae9bf0d1717a77404352",
+        model,
         input={
-            "model": "dev",
             "prompt": prompt,
-            "lora_scale": 1,
-            "num_outputs": 1,
             "aspect_ratio": "16:9",
             "output_format": "webp",
-            "guidance_scale": 3.5,
             "output_quality": 80,
-            "prompt_strength": 0.8,
-            "extra_lora_scale": 0.8,
-            "num_inference_steps": 28,
-        },
+        }
+        | (
+            {
+                "model": "dev",
+                "lora_scale": 1,
+                "num_outputs": 1,
+                "guidance_scale": 3.5,
+                "prompt_strength": 0.8,
+                "extra_lora_scale": 0.8,
+                "num_inference_steps": 28,
+            }
+            if os.getenv("USE_LORA", "").lower() == "true"
+            else {
+                "steps": 25,
+                "guidance": 3,
+                "interval": 2,
+                "safety_tolerance": 2,
+            }
+        ),
     )
     logging.info("Replicate API call completed")
     return output
@@ -58,11 +72,11 @@ def download_image(url, folder, filename):
 
 def generate_prompt(description):
     logging.info(f"Generating prompt for description: {description[:50]}...")
-    prompt = f"Generate a detailed and unique image prompt based on the following scene description: {description}. The prompt should be suitable for an image generation AI model. Style: Ancient Rome 0 AD. Make each prompt distinct and creative."
+    prompt = f"Generate a unique image generation prompt based on the following scene description: {description}. The prompt should be suitable for an image generation AI model. Make each prompt distinct and creative."
 
     client = OpenAI()
     response = client.chat.completions.create(
-        model="gpt-4",  # Update this to the correct model name
+        model="gpt-4o",  # Update this to the correct model name
         messages=[
             {
                 "role": "system",
@@ -80,9 +94,10 @@ def generate_prompt(description):
     return generated_prompt
 
 
-def generate_images(data):
+def generate_images(data, style):
     results = []
     total_scenes = len(data["scenes"])
+    output_folder = f"output_{style}_{date.today().strftime('%Y%m%d')}"
     for i, scene in enumerate(data["scenes"], 1):  # This already starts at 1
         logging.info(f"Processing scene {i} ({i}/{total_scenes})")
         scene_results = {"scene_number": i, "images": []}
@@ -93,13 +108,15 @@ def generate_images(data):
 
             # Generate image using the prompt
             logging.info(f"Generating image {j+1}/{NR_IMAGES} for scene {i}")
-            result = call_replicate_api(prompt)
+            result = call_replicate_api(prompt, style)
 
             logging.info(f"Generated image: {result}")
 
-            image_url = result[0]
+            image_url = (
+                result[0] if os.getenv("USE_LORA", "").lower() == "true" else result
+            )
             filename = f"scene_{i}_image_{j+1}.webp"
-            download_image(image_url, "output", filename)
+            download_image(image_url, output_folder, filename)
             scene_results["images"].append(
                 {
                     "version": f"v{j+1}",
@@ -113,14 +130,15 @@ def generate_images(data):
 
 
 def main(json_file_path):
-    logging.info("Starting image generation process")
     load_dotenv()
     if "REPLICATE_API_TOKEN" not in os.environ:
         logging.error("REPLICATE_API_TOKEN environment variable is not set")
         raise Exception("REPLICATE_API_TOKEN environment variable is not set")
 
+    style = input("Enter the style for image generation (e.g., 'wong_kai wei'): ")
     data = load_data(json_file_path)
-    results = generate_images(data)
+    logging.info("Starting image generation process")
+    results = generate_images(data, style)
     logging.info("Image generation process completed")
     return results
 

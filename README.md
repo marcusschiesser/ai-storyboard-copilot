@@ -28,6 +28,8 @@ This project generates images based on scene descriptions using AI models.
      REPLICATE_API_TOKEN=your_replicate_api_token
      OPENAI_API_KEY=your_openai_api_key
      ```
+   - Use `REPLICATE_MODEL` to specify the model to use for image generation. If not set, the [default model Flux-Pro](https://replicate.com/black-forest-labs/flux-pro) will be used. 
+   - If it's a Lora model add `USE_LORA=true` to the .env file
 
 ## Usage
 
